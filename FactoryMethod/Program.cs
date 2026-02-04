@@ -12,9 +12,9 @@ namespace FactoryMethod
             var startup = new Startup();
             var serviceProvider = startup.ConfigureServices();
             var httpParameter = (IHttpParameter)serviceProvider.GetService(typeof(IHttpParameter));
+            var erpProvider = (IERPFactoryProvider)serviceProvider.GetService(typeof(IERPFactoryProvider));
 
-            var erpFactory = new ERPFactory(httpParameter);
-            var erp = erpFactory.GetERP();
+            var erp = erpProvider.GetFactory(httpParameter).GetERP();
 
             while(true)
             {

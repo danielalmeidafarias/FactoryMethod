@@ -11,4 +11,12 @@ namespace FactoryMethod
             return "Bling";
         }
     }
+
+    public class BlingERPFactory : ERPFactory
+    {
+        public override IERP CreateERP()
+        {
+            return new BlingERP();
+        }
+    }
 }

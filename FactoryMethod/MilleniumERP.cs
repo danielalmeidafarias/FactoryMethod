@@ -10,5 +10,13 @@ namespace FactoryMethod
         {
             return "Millenium";
         }
+
+        public class MilleniumERPFactory : ERPFactory
+        {
+            public override IERP CreateERP()
+            {
+                return new MilleniumERP();
+            }
+        }
     }
 }

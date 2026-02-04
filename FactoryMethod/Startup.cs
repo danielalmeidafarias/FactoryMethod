@@ -10,7 +10,8 @@ namespace FactoryMethod
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddSingleton<IHttpParameter, HttpParameter>();
-            
+            serviceCollection.AddSingleton<IERPFactoryProvider, ERPFactoryProvider>();
+
             return serviceCollection.BuildServiceProvider();
         }
     }
