@@ -11,18 +11,29 @@ namespace FactoryMethod
         {
             var startup = new Startup();
             var serviceProvider = startup.ConfigureServices();
+
+            // Http Parameter para representar a fonte de configurações do serviço
+            // Nesse caso aqui, a configuração depende de informações retornadas por API
             var httpParameter = (IHttpParameter)serviceProvider.GetService(typeof(IHttpParameter));
+
+            // ERP Provider é responsável por saber as implementações de ERP que existem
+            // A informação das implementações concretas do ERP passam apenas por ele
+            // Metodo GetFactory retorna a factory do ERP em questão
             var erpProvider = (IERPFactoryProvider)serviceProvider.GetService(typeof(IERPFactoryProvider));
 
-            var erp = erpProvider.GetFactory(httpParameter).GetERP();
+            var erpFactory = erpProvider.GetFactory(httpParameter);
+
+            // ERP factory é a classe abstrata que cada ERP deve implementar
+            // A classe é responsável por criar o ERP, adicionando todas as dependencias que precisar
+            var erp = erpFactory.GetERP();
 
             while(true)
             {
-                MainFunction(erp);
+                Exec(erp);
             }
         }     
         
-        static void MainFunction(IERP erp)
+        static void Exec(IERP erp)
         {
             Console.WriteLine(erp.GetName());
         }
